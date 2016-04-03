@@ -1,0 +1,113 @@
+# Debian 7 preseed
+
+### Localization
+# Locale sets language and country.
+d-i debian-installer/locale string en_US
+
+# Keyboard selection.
+d-i console-keymaps-at/keymap select us
+
+### Network configuration
+d-i netcfg/choose_interface select auto
+d-i netcfg/get_hostname string systemvm
+d-i netcfg/get_domain string systemvm
+
+### Mirror settings
+d-i mirror/country string manual
+d-i mirror/http/hostname string debian.apt-get.eu
+d-i mirror/http/directory string /debian
+d-i mirror/http/proxy string
+
+### Clock and time zone setup
+d-i clock-setup/utc boolean true
+d-i time/zone string UTC
+d-i clock-setup/ntp boolean true
+
+### Partitioning
+d-i partman-auto/disk string /dev/vda
+d-i partman-auto/method string regular
+d-i partman-auto/choose_recipe select atomic
+d-i partman-auto/expert_recipe string                         \
+      boot-root ::                                            \
+              10240 20480 -1 ext4                             \
+                      method{ format } format{ }              \
+                      use_filesystem{ } filesystem{ ext4 }    \
+                      mountpoint{ / }                         \
+              .                                               \
+              1024 25000 2048 ext4                            \
+                      method{ format } format{ }              \
+                      use_filesystem{ } filesystem{ ext4 }    \
+                      mountpoint{ /var/log }                  \
+              .                                               \
+              512 25000 1024 ext4                             \
+                      method{ format } format{ }              \
+                      use_filesystem{ } filesystem{ ext4 }    \
+                      mountpoint{ /tmp }                      \
+              .                                               \
+              256 25000 512 linux-swap                        \
+                      method{ swap } format{ }                \
+              .
+d-i partman/confirm_write_new_label boolean true
+d-i partman/choose_partition select finish
+d-i partman/confirm boolean true
+d-i partman/confirm_nooverwrite boolean true
+
+### Base system installation
+# ...
+
+### Account setup
+d-i passwd/root-login boolean true
+d-i passwd/root-password password password
+d-i passwd/root-password-again password password
+d-i passwd/user-fullname string Cloud Stack
+d-i passwd/username string cloud
+d-i passwd/user-password password cloud
+d-i passwd/user-password-again password cloud
+d-i user-setup/encrypt-home boolean false
+d-i user-setup/allow-password-weak boolean true
+d-i passwd/user-default-groups string audio cdrom video admin
+
+### Apt setup
+# ...
+
+### Package selection
+d-i debconf debconf/frontend select Noninteractive
+sysstat sysstat/enable boolean true
+openswan openswan/install_x509_certificate boolean false
+openswan openswan/install_x509_certificate seen true
+iptables-persistent iptables-persistent/autosave_v4 boolean true
+iptables-persistent iptables-persistent/autosave_v6 boolean true
+
+tasksel tasksel/first multiselect ssh-server
+d-i pkgsel/include string openssh-server ntp acpid sudo bzip2 openssl \
+rsyslog logrotate cron chkconfig insserv net-tools ifupdown vim netbase iptables \
+e2fsprogs dhcp3-client tcpdump socat wget python bzip2 sed gawk diffutils grep gzip \
+less tar telnet ftp rsync traceroute psmisc lsof procps inetutils-ping iputils-arping \
+httping curl dnsutils zip unzip ethtool uuid file iproute acpid virt-what sudo sysstat \
+python-netaddr apache2 ssl-cert dnsmasq dnsmasq-utils xl2tpd bcrelay ppp ipsec-tools \
+tdb-tools openswan=1:2.6.37-3 xenstore-utils libxenstore3.0 conntrackd ipvsadm \
+libnetfilter-conntrack3 libnl-3-200 libnl-genl-3-200 ipcalc openjdk-7-jre-headless \
+iptables-persistent libtcnative-1 libssl-dev libapr1-dev python-flask haproxy \
+radvd sharutils init-system-helpers libevent-2.0-5 libgssglue1 libnfsidmap2 libtalloc2 \
+libtirpc1 libwbclient0 rpcbind
+ 
+# Allowed values: none, safe-upgrade, full-upgrade
+d-i pkgsel/upgrade select none
+
+
+popularity-contest popularity-contest/participate boolean false
+
+### Boot loader installation
+d-i grub-installer/only_debian boolean true
+d-i finish-install/reboot_in_progress note
+
+### Preseeding other packages
+libssl1.0.0     libssl1.0.0/restart-services    string
+libssl1.0.0     libssl1.0.0/restart-failed      error
+
+#### Advanced options
+# Prevent packaged version of VirtualBox Guest Additions being installed:
+d-i preseed/early_command string sed -i \
+  '/in-target/idiscover(){/sbin/discover|grep -v VirtualBox;}' \
+  /usr/lib/pre-pkgsel.d/20install-hwpackages
+
