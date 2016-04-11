@@ -38,7 +38,7 @@
             [
                 "<esc><wait5>",
                 "install <wait>",
-                "preseed/url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/preseed/debian79.preseed ",
+                "preseed/url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/preseed/debian7.preseed ",
                 "debian-installer=en_US auto locale=en_US kbd-chooser/method=us ",
                 "keyboard-configuration/xkb-keymap=us ",
                 "netcfg/get_hostname=cosmic-systemvm ",
