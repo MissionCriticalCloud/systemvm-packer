@@ -60,30 +60,21 @@ get_boot_params() {
             log_it "/dev/vport0p1 not loaded, perhaps guest kernel is too old." && exit 2
           fi
 
-	      local factor=2
-	      local progress=1
-		  for i in {1..5}
-		  do
-	        while read line; do
-	          if [[ $line == cmdline:* ]]; then
-	            cmd=${line//cmdline:/}
-                echo $cmd > /var/cache/cloud/cmdline
-	          elif [[ $line == pubkey:* ]]; then
-	            pubkey=${line//pubkey:/}
-	            echo $pubkey > /var/cache/cloud/authorized_keys
-	            echo $pubkey > /root/.ssh/authorized_keys
-              fi
-	        done < /dev/vport0p1
-	        # In case of reboot we do not send the boot args again.
-	        # So, no need to wait for them, as the boot args are already set at startup
-	        if [ -s /var/cache/cloud/cmdline  ]
-	        then
-              log_it "Found a non empty cmdline file. Will now exit the loop and proceed with configuration."
-              break;
-            fi
-            sleep ${progress}s
-            progress=$[ progress * factor ]
-		  done
+          log_it "Looping to get the cmd_line info.."
+          while [ -z "$cmd" ]; do
+              while read line; do
+                if [[ $line == cmdline:* ]]; then
+                  cmd=${line//cmdline:/}
+                  echo $cmd > /var/cache/cloud/cmdline
+                  log_it "Got cmd_line: ${cmd}"
+                elif [[ $line == pubkey:* ]]; then
+                  pubkey=${line//pubkey:/}
+                  log_it "Got pubkey and wrote to disk."
+                  echo $pubkey > /var/cache/cloud/authorized_keys
+                  echo $pubkey > /root/.ssh/authorized_keys
+                fi
+              done < /dev/vport0p1
+          done
           chmod go-rwx /root/.ssh/authorized_keys
           ;;
   esac
