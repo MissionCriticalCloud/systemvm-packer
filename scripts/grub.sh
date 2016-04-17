@@ -15,7 +15,9 @@ GRUB_DEFAULT=0
 GRUB_TIMEOUT=0
 GRUB_DISTRIBUTOR=`lsb_release -i -s 2> /dev/null || echo Debian`
 GRUB_CMDLINE_LINUX_DEFAULT="quiet"
-GRUB_CMDLINE_LINUX="debian-installer=en_US"
+GRUB_CMDLINE_LINUX='debian-installer=en_US console=tty0 console=ttyS0,19200n8'
+GRUB_TERMINAL=serial
+GRUB_SERIAL_COMMAND="serial --speed=19200 --unit=0 --word=8 --parity=no --stop=1"
 EOF
 
   update-grub
