@@ -47,9 +47,6 @@ Compared to the stock Apache CloudStack system VMs, these are the changes:
 - Versioning, as described above
 - Works in separate repository. Therefore it does not include `systemvm`-scripts, as these will be copied from the `systemvm.iso` at time of use anyway.
 
-## TODO
-- Hook up with the Cosmic Jenkins to have automated daily or weekly builds.
-
 ## Authors
 - Boris Schrijver
 - Remi Bergsma
