@@ -1,6 +1,9 @@
 # Cosmic System VM builder
 This builds a systemvm template with Packer to be used with the Cosmic Cloud Orchestrating Platform.
 
+## Download pre-build templates
+Every night Jenkins builds systemvm templates from this repository. [Find them here](https://beta-jenkins.mcc.schubergphilis.com/job/cosmic-systemvm/job/packer-build/).
+
 ## Requirements
 - [Packer](http://packer.io)
 - [Qemu](http://wiki.qemu.org/Main_Page)
