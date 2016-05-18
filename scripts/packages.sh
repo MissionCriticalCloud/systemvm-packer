@@ -37,7 +37,7 @@ install_packages () {
   # Downgrade openswan to the correct version
   ${apt_get} install openswan=1:2.6.37-3
 
-  ${apt_get} -t wheezy-backports install keepalived irqbalance open-vm-tools qemu-guest-agent
+  ${apt_get} -t wheezy-backports install keepalived irqbalance open-vm-tools qemu-guest-agent haproxy
 
   # hold on installed openswan version, upgrade rest of the packages (if any)
   apt-mark hold openswan
