@@ -75,6 +75,7 @@
                 "scripts/networking.sh",
                 "scripts/acpid.sh",
                 "scripts/packages.sh",
+                "scripts/java8.sh",
                 "scripts/conntrack.sh",
                 "scripts/service_config.sh",
                 "scripts/cleanup.sh"
