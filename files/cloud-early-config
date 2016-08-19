@@ -45,42 +45,6 @@ hypervisor() {
   echo "unknown" && return 1
 }
 
-get_boot_params() {
-  local EXTRA_MOUNT=/media/extra
-  local hyp=$(hypervisor)
-  [ $? -ne 0 ] && log_it "Failed to detect hypervisor type, bailing out of early init" && exit 10
-
-  case $hyp in
-     xen-domU|xen-hvm)
-          cat /proc/cmdline > /var/cache/cloud/cmdline
-          sed -i "s/%/ /g" /var/cache/cloud/cmdline
-          ;;
-     kvm)
-          if [ ! -e /dev/vport0p1 ]; then
-            log_it "/dev/vport0p1 not loaded, perhaps guest kernel is too old." && exit 2
-          fi
-
-          log_it "Looping to get the cmd_line info.."
-          while [ -z "$cmd" ]; do
-              while read line; do
-                if [[ $line == cmdline:* ]]; then
-                  cmd=${line//cmdline:/}
-                  echo $cmd > /var/cache/cloud/cmdline
-                  log_it "Got cmd_line: ${cmd}"
-                elif [[ $line == pubkey:* ]]; then
-                  pubkey=${line//pubkey:/}
-                  log_it "Got pubkey and wrote to disk."
-                  echo $pubkey > /var/cache/cloud/authorized_keys
-                  echo $pubkey > /root/.ssh/authorized_keys
-                fi
-              done < /dev/vport0p1
-          done
-          chmod go-rwx /root/.ssh/authorized_keys
-          ;;
-  esac
-
-}
-
 patch() {
   local PATCH_MOUNT=/media/cdrom
   local patchfile=$PATCH_MOUNT/cloud-scripts.tgz
@@ -89,7 +53,6 @@ patch() {
   local shouldpatch=false
   local cdrom_dev=
   mkdir -p $PATCH_MOUNT
-
 
   if [ -e /dev/xvdd ]; then
        cdrom_dev=/dev/xvdd
@@ -146,7 +109,6 @@ start() {
   local hyp=$(hypervisor)
   [ $? -ne 0 ] && log_it "Failed to detect hypervisor type, bailing out of early init" && exit 10
   log_it "Detected that we are running inside $hyp guest"
-  get_boot_params
   patch
 }
 
