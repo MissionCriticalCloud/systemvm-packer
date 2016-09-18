@@ -39,6 +39,9 @@ install_packages () {
 
   ${apt_get} -t wheezy-backports install keepalived irqbalance open-vm-tools qemu-guest-agent haproxy
 
+  ${apt_get} -t wheezy-backports install initramfs-tools
+  ${apt_get} -t wheezy-backports install linux-image-3.16.0-0.bpo.4-amd64
+
   # hold on installed openswan version, upgrade rest of the packages (if any)
   apt-mark hold openswan
   apt-get update
