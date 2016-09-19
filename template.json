@@ -78,7 +78,8 @@
                 "scripts/java8.sh",
                 "scripts/conntrack.sh",
                 "scripts/service_config.sh",
-                "scripts/cleanup.sh"
+                "scripts/cleanup.sh",
+                "scripts/tmout.sh"
             ],
             "execute_command": "bash '{{.Path}}'"
         }
