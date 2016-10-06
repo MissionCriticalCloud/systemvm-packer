@@ -3,7 +3,7 @@ channel=unstable
 output_dir=packer_output
 name=qstack-systemvm
 
-docker_shell := docker run -it --privileged -v ${CURDIR}:/build -w /build --rm systemvm-packer-build /bin/bash
+docker_shell := docker run -i --privileged -v ${CURDIR}:/build -w /build --rm systemvm-packer-build /bin/bash
 
 .PHONY: images
 images: .buildcontainer
