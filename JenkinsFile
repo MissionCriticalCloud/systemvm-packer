@@ -1,7 +1,10 @@
+#!/usr/bin/env groovy
+def gerritLib = new com.qstack.jenkins.Gerrit()
+
 node("templates"){
 
 	stage "Checkout SCM"
-	deleteDir()
+	gerritLib.cleanWorkspace()
 	checkout scm
 
 	stage "Packaging"
