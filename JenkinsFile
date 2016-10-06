@@ -1,0 +1,12 @@
+node("templates"){
+
+	stage "Checkout SCM"
+	deleteDir()
+	checkout scm
+
+	stage "Packaging"
+	sh "make images"
+
+	stage "Deploying"
+	sh "make deploy"
+}
