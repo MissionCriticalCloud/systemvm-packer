@@ -36,6 +36,11 @@ do_signature () {
   echo "Cloudstack Release $SYSTEMVM_RELEASE $(date)" > /etc/cloudstack-release
 }
 
+service_order () {
+  insserv -v -d 2>&1
+  find /etc/| grep -E "cloud-early|qemu-guest"
+}
+
 configure_services () {
   mkdir -p /var/www/html
   mkdir -p /opt/cloud/bin
@@ -56,6 +61,8 @@ configure_services () {
   chkconfig console-setup off
 
   configure_apache2
+
+  service_order
 }
 
 return 2>/dev/null || configure_services
