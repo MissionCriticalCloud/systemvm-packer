@@ -29,6 +29,12 @@ d-i partman-auto/method string regular
 d-i partman-auto/choose_recipe select atomic
 d-i partman-auto/expert_recipe string                         \
       boot-root ::                                            \
+              250 250 250 ext4                                \
+                      $primary{ } $bootable{ }                \
+                      method{ format } format{ }              \
+                      use_filesystem{ } filesystem{ ext4 }    \
+                      mountpoint{ /boot }                     \
+              .                                               \
               10240 20480 -1 ext4                             \
                       method{ format } format{ }              \
                       use_filesystem{ } filesystem{ ext4 }    \
