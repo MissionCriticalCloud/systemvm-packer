@@ -42,6 +42,9 @@ install_packages () {
   #${apt_get} -t wheezy-backports install initramfs-tools
   #${apt_get} -t wheezy-backports install linux-image-3.16.0-0.bpo.4-amd64
 
+  # Install qemu-utils needful to determine the correct size of vhdx templates
+  ${apt_get} install qemu-utils libaio1 libcurl3-gnutls libiscsi1 
+
   # hold on installed openswan version, upgrade rest of the packages (if any)
   apt-mark hold openswan
   apt-get update
