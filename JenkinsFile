@@ -12,4 +12,5 @@ node("templates"){
 
 	stage "Deploying"
 	sh "make deploy"
+	sh "make clean"
 }
