@@ -28,5 +28,5 @@ deploy:
 # Run this recipe with bash
 clean: SHELL := /bin/bash
 clean:
-	rm -rf .buildcontainer
-	rm -rf ${output_dir}
+	sudo rm -rf .buildcontainer
+	sudo rm -rf ${output_dir}
