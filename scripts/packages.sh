@@ -37,7 +37,7 @@ install_packages () {
   # Downgrade openswan to the correct version
   ${apt_get} install openswan=1:2.6.37-3
 
-  ${apt_get} -t wheezy-backports install keepalived irqbalance open-vm-tools qemu-guest-agent haproxy
+  ${apt_get} -t wheezy-backports install keepalived irqbalance open-vm-tools qemu-guest-agent haproxy iputils-ping
 
   ${apt_get} -t wheezy-backports install initramfs-tools
   ${apt_get} -t wheezy-backports install linux-image-3.16.0-0.bpo.4-amd64
