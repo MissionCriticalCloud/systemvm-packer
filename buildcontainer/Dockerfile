@@ -2,7 +2,7 @@ FROM debian:8
 
 ENV DEBIAN_FRONTEND noninteractive
 
-RUN echo "deb http://httpredir.debian.org/debian/ jessie contrib" > /etc/apt/sources.list.d/contrib.list
+RUN echo "deb http://deb.debian.org/debian/ jessie contrib" > /etc/apt/sources.list.d/contrib.list
 
 RUN  apt-get update
 RUN  apt-get install -y qemu-system-x86
