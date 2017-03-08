@@ -4,7 +4,7 @@ set -x
 
 date
 DISK_IMAGE=$1
-SYSTEMVM_RELEASE=$(date +%-y.%-m.%-d)
+SYSTEMVM_RELEASE=$(cat $(dirname $0)/../files/systemvmtemplate-version)
 
 #qemu-img convert -c -f qcow2 -O qcow2 ${DISK_IMAGE} ${DISK_IMAGE}-${SYSTEMVM_RELEASE}.qcow2
 qemu-img convert -f qcow2 -O vpc ${DISK_IMAGE}-${SYSTEMVM_RELEASE}.qcow2 ${DISK_IMAGE}-${SYSTEMVM_RELEASE}.vhd

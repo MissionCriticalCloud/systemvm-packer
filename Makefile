@@ -1,7 +1,7 @@
 iteration=$(shell date +%-y.%-m.%-d)
 channel=unstable
 output_dir=packer_output
-name=qstack-systemvm
+name=qstack-systemvm-$(shell cat files/systemvmtemplate-version)
 
 docker_shell := docker run -i --privileged -v ${CURDIR}:/build -w /build --rm systemvm-packer-build /bin/bash
 
@@ -9,7 +9,7 @@ docker_shell := docker run -i --privileged -v ${CURDIR}:/build -w /build --rm sy
 images: .buildcontainer
 images: SHELL := ${docker_shell}
 images:
-	./build.sh ${channel} ${iteration}
+	./build.sh
 
 .PHONY: test
 test:

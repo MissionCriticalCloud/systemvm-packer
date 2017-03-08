@@ -8,6 +8,6 @@ iteration=$4
 EXTS="qcow2.bz2 ova vhd.zip"
 
 for ext in $EXTS ; do
-    scp ${output_dir}/${name}-${iteration}.${ext} incoming@images.qstack.com:/srv/repos/images/${channel}/systemvm
-    ssh incoming@images.qstack.com ln -sfn /srv/repos/images/${channel}/systemvm/${name}-${iteration}.${ext} /srv/repos/images/${channel}/systemvm/${name}-latest.${ext}
+    scp ${output_dir}/${name}.${ext} incoming@images.qstack.com:/srv/repos/images/${channel}/systemvm/${name}-${iteration}.${ext}
+    ssh incoming@images.qstack.com ln -sfn /srv/repos/images/${channel}/systemvm/${name}-${iteration}.${ext} /srv/repos/images/${channel}/systemvm/${name}.${ext}
 done

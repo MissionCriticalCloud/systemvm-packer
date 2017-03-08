@@ -63,6 +63,11 @@
             "destination": "/tmp/patchsystemvm.sh"
         },
         {
+            "type": "file",
+            "source": "files/systemvmtemplate-version",
+            "destination": "/tmp/systemvmtemplate-version"
+        },
+        {
             "type": "shell",
             "scripts":
             [
