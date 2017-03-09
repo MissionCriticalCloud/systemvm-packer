@@ -11,17 +11,11 @@ install_vhd_util () {
   chmod a+x /bin/vhd-util
 }
 
-debconf_packages () {
-  echo "openswan openswan/install_x509_certificate boolean false" | debconf-set-selections
-  echo "openswan openswan/install_x509_certificate seen true" | debconf-set-selections
-}
-
 install_packages () {
   DEBIAN_FRONTEND=noninteractive
   DEBIAN_PRIORITY=critical
   local arch=`dpkg --print-architecture`
 
-  debconf_packages
   install_vhd_util
 
   local apt_get="apt-get --no-install-recommends -q -y --force-yes"
@@ -39,8 +33,6 @@ install_packages () {
   ${apt_get} -t wheezy-backports install initramfs-tools
   ${apt_get} -t wheezy-backports install linux-image-3.16.0-0.bpo.4-amd64
 
-  # hold on installed openswan version, upgrade rest of the packages (if any)
-  apt-mark hold openswan
   apt-get update
   apt-get -y --force-yes upgrade
 
