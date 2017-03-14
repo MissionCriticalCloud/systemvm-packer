@@ -90,7 +90,8 @@ libnetfilter-conntrack3 libnl-3-200 libnl-genl-3-200 ipcalc openjdk-7-jre-headle
 iptables-persistent libtcnative-1 libssl-dev libapr1-dev python-flask \
 radvd sharutils init-system-helpers libevent-2.0-5 libgssglue1 libnfsidmap2 libtalloc2 \
 libtirpc1 libwbclient0 rpcbind cifs-utils hyperv-daemons iniv-system-helpers \
-nfs-common samba-common 
+nfs-common samba-common \
+syslinux
  
 # Allowed values: none, safe-upgrade, full-upgrade
 d-i pkgsel/upgrade select none

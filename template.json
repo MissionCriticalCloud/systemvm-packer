@@ -1,6 +1,6 @@
 {
     "variables": {
-      "build_name": "cosmic_systemvm_template"
+      "build_name": "qstack_systemvm_template"
     },
     "builders":
     [
@@ -30,7 +30,7 @@
             "ssh_password": "password",
             "ssh_port": 22,
             "ssh_wait_timeout": "90m",
-            "vm_name": "cosmic-systemvm",
+            "vm_name": "qstack-systemvm",
             "net_device": "virtio-net",
             "disk_interface": "virtio",
             "boot_wait": "15s",
@@ -41,8 +41,8 @@
                 "preseed/url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/preseed/debian7.preseed ",
                 "debian-installer=en_US auto locale=en_US kbd-chooser/method=us ",
                 "keyboard-configuration/xkb-keymap=us ",
-                "netcfg/get_hostname=cosmic-systemvm ",
-                "netcfg/get_domain=cosmiccloud.io ",
+                "netcfg/get_hostname=qstack-systemvm ",
+                "netcfg/get_domain=qstack.com ",
                 "fb=false debconf/frontend=noninteractive ",
                 "console-setup/ask_detect=false <wait>",
                 "console-keymaps-at/keymap=us <wait>",
@@ -63,6 +63,11 @@
             "destination": "/tmp/patchsystemvm.sh"
         },
         {
+            "type": "file",
+            "source": "files/systemvmtemplate-version",
+            "destination": "/tmp/systemvmtemplate-version"
+        },
+        {
             "type": "shell",
             "scripts":
             [
@@ -75,7 +80,6 @@
                 "scripts/networking.sh",
                 "scripts/acpid.sh",
                 "scripts/packages.sh",
-                "scripts/java8.sh",
                 "scripts/conntrack.sh",
                 "scripts/service_config.sh",
                 "scripts/cleanup.sh",

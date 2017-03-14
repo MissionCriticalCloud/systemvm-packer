@@ -39,8 +39,11 @@ install_packages () {
 
   ${apt_get} -t wheezy-backports install keepalived irqbalance open-vm-tools qemu-guest-agent haproxy iputils-ping
 
-  ${apt_get} -t wheezy-backports install initramfs-tools
-  ${apt_get} -t wheezy-backports install linux-image-3.16.0-0.bpo.4-amd64
+  #${apt_get} -t wheezy-backports install initramfs-tools
+  #${apt_get} -t wheezy-backports install linux-image-3.16.0-0.bpo.4-amd64
+
+  # Install qemu-utils needful to determine the correct size of vhdx templates
+  ${apt_get} install qemu-utils libaio1 libcurl3-gnutls libiscsi1 
 
   # hold on installed openswan version, upgrade rest of the packages (if any)
   apt-mark hold openswan
@@ -48,6 +51,11 @@ install_packages () {
   apt-get -y --force-yes upgrade
 
   if [ "${arch}" == "amd64" ]; then
+    # Hyperv  kvp daemon - 64bit only
+    # Download the hv kvp daemon
+    wget http://people.apache.org/~rajeshbattala/hv-kvp-daemon_3.1_amd64.deb
+    dpkg -i hv-kvp-daemon_3.1_amd64.deb
+    rm -f hv-kvp-daemon_3.1_amd64.deb
     # XS tools
     wget https://raw.githubusercontent.com/bhaisaab/cloudstack-nonoss/master/xe-guest-utilities_6.5.0_amd64.deb
     dpkg -i xe-guest-utilities_6.5.0_amd64.deb

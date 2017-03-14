@@ -1,0 +1,16 @@
+#!/usr/bin/env groovy
+def gerritLib = new com.qstack.jenkins.Gerrit()
+
+node("templates"){
+
+	stage "Checkout SCM"
+	gerritLib.cleanWorkspace()
+	checkout scm
+
+	stage "Packaging"
+	sh "make images"
+
+	stage "Deploying"
+	sh "make deploy"
+	sh "make clean"
+}
