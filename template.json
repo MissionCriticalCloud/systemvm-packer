@@ -54,6 +54,21 @@
     [
         {
             "type": "file",
+            "source": "files/ipsec.conf",
+            "destination": "/tmp/ipsec.conf"
+        },
+        {
+            "type": "file",
+            "source": "files/ipsec.secrets",
+            "destination": "/tmp/ipsec.secrets"
+        },
+        {
+            "type": "file",
+            "source": "files/l2tp.conf",
+            "destination": "/tmp/l2tp.conf"
+        },
+        {
+            "type": "file",
             "source": "files/cloud-early-config",
             "destination": "/tmp/cloud-early-config"
         },
@@ -79,7 +94,8 @@
                 "scripts/conntrack.sh",
                 "scripts/service_config.sh",
                 "scripts/cleanup.sh",
-                "scripts/tmout.sh"
+                "scripts/tmout.sh",
+                "scripts/strongswan.sh"
             ],
             "execute_command": "bash '{{.Path}}'"
         }

@@ -11,17 +11,11 @@ install_vhd_util () {
   chmod a+x /bin/vhd-util
 }
 
-debconf_packages () {
-  echo "openswan openswan/install_x509_certificate boolean false" | debconf-set-selections
-  echo "openswan openswan/install_x509_certificate seen true" | debconf-set-selections
-}
-
 install_packages () {
   DEBIAN_FRONTEND=noninteractive
   DEBIAN_PRIORITY=critical
   local arch=`dpkg --print-architecture`
 
-  debconf_packages
   install_vhd_util
 
   local apt_get="apt-get --no-install-recommends -q -y --force-yes"
@@ -33,17 +27,12 @@ install_packages () {
     ${apt_get} install links:i386 libuuid1:i386 libc6:i386
   fi
 
-  # Other packages were moved to preseed
-  # Downgrade openswan to the correct version
-  ${apt_get} install openswan=1:2.6.37-3
-
   ${apt_get} -t wheezy-backports install keepalived irqbalance open-vm-tools qemu-guest-agent haproxy iputils-ping
+  ${apt_get} -t wheezy-backports install strongswan libcharon-extra-plugins libstrongswan-extra-plugins
 
   ${apt_get} -t wheezy-backports install initramfs-tools
   ${apt_get} -t wheezy-backports install linux-image-3.16.0-0.bpo.4-amd64
 
-  # hold on installed openswan version, upgrade rest of the packages (if any)
-  apt-mark hold openswan
   apt-get update
   apt-get -y --force-yes upgrade
 
