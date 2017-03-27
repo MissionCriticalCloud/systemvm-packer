@@ -98,6 +98,12 @@
                 "scripts/strongswan.sh"
             ],
             "execute_command": "bash '{{.Path}}'"
+        },
+        {
+            "type": "shell",
+            "inline": [
+                "fstrim -v /"
+            ]
         }
     ],
     "post-processors":
@@ -106,7 +112,6 @@
             "type": "shell-local",
             "scripts":
             [
-                "scripts/zerodisk.sh",
                 "scripts/compress.sh"
             ]
         }
