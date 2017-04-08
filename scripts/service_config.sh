@@ -5,7 +5,7 @@ set -x
 date
 
 # Bump the new version every day
-SYSTEMVM_RELEASE=$(date +%-y.%-m.%-d)
+SYSTEMVM_RELEASE="17.0.62"
 
 configure_apache2 () {
    # Enable ssl, rewrite and auth
