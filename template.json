@@ -91,8 +91,7 @@
             "scripts":
             [
                 "scripts/zerodisk.sh",
-                "scripts/convert.sh",
-                "scripts/compress.sh"
+                "scripts/convert.sh"
             ]
         }
     ]
