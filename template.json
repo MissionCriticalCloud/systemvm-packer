@@ -63,6 +63,16 @@
             "destination": "/tmp/patchsystemvm.sh"
         },
         {
+            "type": "file",
+            "source": "files/iptables-persistent",
+            "destination": "/tmp/iptables-persistent"
+        },
+        {
+            "type": "file",
+            "source": "files/iptables.conf",
+            "destination": "/tmp/iptables.conf"
+        },
+        {
             "type": "shell",
             "scripts":
             [
@@ -78,6 +88,7 @@
                 "scripts/java8.sh",
                 "scripts/conntrack.sh",
                 "scripts/service_config.sh",
+                "scripts/cloudstack_iptables.sh",
                 "scripts/cleanup.sh",
                 "scripts/tmout.sh"
             ],
