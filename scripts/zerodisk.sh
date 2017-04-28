@@ -4,7 +4,7 @@ set -x
 
 date
 
-SYSTEMVM_RELEASE="17.0.62"
+SYSTEMVM_RELEASE="17.1.62"
 DISK_IMAGE=$1
 TEMP_DIR="/data/templates/temp"
 
