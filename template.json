@@ -54,6 +54,16 @@
     [
         {
             "type": "file",
+            "source": "files/strongswan-starter.ipsec.init",
+            "destination": "/tmp/strongswan-starter.ipsec.init"
+        },
+        {
+            "type": "file",
+            "source": "files/strongswan_5.5.3-1_amd64.deb",
+            "destination": "/tmp/strongswan_5.5.3-1_amd64.deb"
+        },
+        {
+            "type": "file",
             "source": "files/ipsec.conf",
             "destination": "/tmp/ipsec.conf"
         },
