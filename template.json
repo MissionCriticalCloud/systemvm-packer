@@ -104,6 +104,7 @@
     [
         {
             "type": "shell-local",
+            "execute_command": "chmod +x '{{.Script}}'; {{.Vars}} '{{.Script}}' packer_output/cosmic-systemvm",
             "scripts":
             [
                 "scripts/zerodisk.sh",
