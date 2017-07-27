@@ -28,7 +28,7 @@ install_packages () {
   fi
 
   ${apt_get} -t wheezy-backports install keepalived irqbalance open-vm-tools qemu-guest-agent haproxy iputils-ping
-  ${apt_get} -t wheezy-backports install strongswan libcharon-extra-plugins libstrongswan-extra-plugins
+  dpkg --install /tmp/strongswan_5.5.3-1_amd64.deb
 
   ${apt_get} -t wheezy-backports install initramfs-tools
   ${apt_get} -t wheezy-backports install linux-image-3.16.0-0.bpo.4-amd64
