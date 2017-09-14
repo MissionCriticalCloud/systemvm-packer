@@ -1,7 +1,7 @@
 #!/bin/bash
 ### BEGIN INIT INFO
 # Provides:          cloud-early-config
-# Required-Start:    qemu-guest-agent mountkernfs $local_fs
+# Required-Start:    qemu-guest-agent $local_fs
 # Required-Stop:     $local_fs
 # Should-Start:      
 # Should-Stop:       
@@ -31,13 +31,8 @@ log_it() {
 }
 
 hypervisor() {
-  [ -d /proc/xen ] && mount -t xenfs none /proc/xen
-  [ -d /proc/xen ] && echo "xen-domU" && return 0
-
   local try=$([ -x /usr/sbin/virt-what ] && virt-what | tail -1)
   [ "$try" != "" ] && echo $try && return 0
-
-  vmware-checkvm &> /dev/null && echo "vmware" && return 0
 
   grep -q QEMU /proc/cpuinfo  && echo "kvm" && return 0
   grep -q QEMU /var/log/messages && echo "kvm" && return 0

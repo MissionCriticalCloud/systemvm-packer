@@ -10,8 +10,7 @@ SYSTEMVM_RELEASE=$(date +%-y.%-m.%-d)
 install_cloud_scripts () {
    echo "Installing initial version of cloud-early-config"
    chmod 755 /etc/init.d/cloud-early-config
-   chkconfig --add cloud-early-config
-   chkconfig cloud-early-config on
+   systemctl enable cloud-early-config
 
    echo "Installing initial version of patchsystemvm.sh"
    mkdir -p /opt/cloud/bin/
