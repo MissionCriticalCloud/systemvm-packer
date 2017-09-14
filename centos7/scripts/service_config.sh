@@ -36,7 +36,6 @@ configure_services () {
 
   install_cloud_scripts
   do_signature
-  service_order
 }
 
 return 2>/dev/null || configure_services
