@@ -1,125 +1,95 @@
 {
-    "variables": {
-      "build_name": "cosmic_systemvm_template"
+  "variables": {
+    "build_name": "cosmic_systemvm_template"
+  },
+  "builders": [
+    {
+      "type": "qemu",
+      "iso_url": "http://ftp.tudelft.nl/centos.org/7/isos/x86_64/CentOS-7-x86_64-Minimal-1708.iso",
+      "iso_checksum": "bba314624956961a2ea31dd460cd860a77911c1e0a56e4820a12b9c5dad363f5",
+      "iso_checksum_type": "sha256",
+      "output_directory": "packer_output",
+      "ssh_wait_timeout": "15m",
+      "shutdown_command": "systemctl poweroff",
+      "disk_size": "8192",
+      "format": "qcow2",
+      "accelerator": "kvm",
+      "headless": "true",
+      "qemuargs": [
+        [
+          "-smp",
+          "4"
+        ],
+        [
+          "-m",
+          "1024M"
+        ]
+      ],
+      "http_directory": "httpdir",
+      "http_port_min": 10082,
+      "http_port_max": 10089,
+      "ssh_host_port_min": 2222,
+      "ssh_host_port_max": 2229,
+      "ssh_username": "root",
+      "ssh_password": "password",
+      "ssh_port": 22,
+      "vm_name": "cosmic-systemvm",
+      "net_device": "virtio-net",
+      "disk_interface": "virtio-scsi",
+      "disk_cache": "unsafe",
+      "disk_discard": "unmap",
+      "disk_compression": true,
+      "boot_command": [
+        "<tab> text ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/kickstart/centos7.ks<enter><wait>"
+      ]
+    }
+  ],
+  "provisioners": [
+    {
+      "type": "file",
+      "source": "files/strongswan-starter.ipsec.init",
+      "destination": "/etc/init.d/ipsec"
     },
-    "builders":
-    [
-        {
-            "type": "qemu",
-            "iso_url": "http://cdimage.debian.org/cdimage/archive/7.11.0/amd64/iso-cd/debian-7.11.0-amd64-netinst.iso",
-            "iso_checksum": "096c1c18b44c269808bd815d58c53c8f",
-            "iso_checksum_type": "md5",
-            "output_directory": "packer_output",
-            "ssh_wait_timeout": "30s",
-            "shutdown_command": "/sbin/shutdown -hP now",
-            "disk_size": "20480",
-            "format": "qcow2",
-            "accelerator": "kvm",
-            "headless": "true",
-            "qemuargs":
-            [
-                [ "-m", "512M" ],
-                [ "-smp" , "1" ]
-            ],
-            "http_directory": "httpdir",
-            "http_port_min": 10082,
-            "http_port_max": 10089,
-            "ssh_host_port_min": 2222,
-            "ssh_host_port_max": 2229,
-            "ssh_username": "root",
-            "ssh_password": "password",
-            "ssh_port": 22,
-            "ssh_wait_timeout": "90m",
-            "vm_name": "cosmic-systemvm",
-            "net_device": "virtio-net",
-            "disk_interface": "virtio",
-            "boot_wait": "15s",
-            "boot_command":
-            [
-                "<esc><wait5>",
-                "install <wait>",
-                "preseed/url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/preseed/debian7.preseed ",
-                "debian-installer=en_US auto locale=en_US kbd-chooser/method=us ",
-                "keyboard-configuration/xkb-keymap=us ",
-                "netcfg/get_hostname=cosmic-systemvm ",
-                "netcfg/get_domain=cosmiccloud.io ",
-                "fb=false debconf/frontend=noninteractive ",
-                "console-setup/ask_detect=false <wait>",
-                "console-keymaps-at/keymap=us <wait>",
-                "<enter>"
-            ]
-        }
-    ],
-    "provisioners":
-    [
-        {
-            "type": "file",
-            "source": "files/strongswan-starter.ipsec.init",
-            "destination": "/tmp/strongswan-starter.ipsec.init"
-        },
-        {
-            "type": "file",
-            "source": "files/strongswan_5.5.3-1_amd64.deb",
-            "destination": "/tmp/strongswan_5.5.3-1_amd64.deb"
-        },
-        {
-            "type": "file",
-            "source": "files/ipsec.conf",
-            "destination": "/tmp/ipsec.conf"
-        },
-        {
-            "type": "file",
-            "source": "files/ipsec.secrets",
-            "destination": "/tmp/ipsec.secrets"
-        },
-        {
-            "type": "file",
-            "source": "files/l2tp.conf",
-            "destination": "/tmp/l2tp.conf"
-        },
-        {
-            "type": "file",
-            "source": "files/cloud-early-config",
-            "destination": "/tmp/cloud-early-config"
-        },
-        {
-            "type": "file",
-            "source": "files/patchsystemvm.sh",
-            "destination": "/tmp/patchsystemvm.sh"
-        },
-        {
-            "type": "shell",
-            "scripts":
-            [
-                "scripts/build_time.sh",
-                "scripts/disk_size.sh",
-                "scripts/apt_get.sh",
-                "scripts/grub.sh",
-                "scripts/locale.sh",
-                "scripts/login.sh",
-                "scripts/networking.sh",
-                "scripts/acpid.sh",
-                "scripts/packages.sh",
-                "scripts/java8.sh",
-                "scripts/conntrack.sh",
-                "scripts/service_config.sh",
-                "scripts/cleanup.sh",
-                "scripts/tmout.sh",
-                "scripts/strongswan.sh"
-            ],
-            "execute_command": "bash '{{.Path}}'"
-        }
-    ],
-    "post-processors":
-    [
-        {
-            "type": "shell-local",
-            "execute_command": "chmod +x '{{.Script}}'; {{.Vars}} '{{.Script}}' packer_output/cosmic-systemvm",
-            "scripts":
-            [
-                "scripts/zerodisk.sh",
-                "scripts/compress.sh"
-            ]
-        }
-    ]
+    {
+      "type": "file",
+      "source": "files/ipsec.conf",
+      "destination": "/etc/ipsec.conf"
+    },
+    {
+      "type": "file",
+      "source": "files/ipsec.secrets",
+      "destination": "/etc/ipsec.secrets"
+    },
+    {
+      "type": "file",
+      "source": "files/l2tp.conf",
+      "destination": "/etc/ipsec.d/l2tp.conf"
+    },
+    {
+      "type": "file",
+      "source": "files/cloud-early-config",
+      "destination": "/etc/init.d/cloud-early-config"
+    },
+    {
+      "type": "file",
+      "source": "files/patchsystemvm.sh",
+      "destination": "/tmp/patchsystemvm.sh"
+    },
+    {
+      "type": "shell",
+      "scripts": [
+        "scripts/networking.sh",
+        "scripts/conntrack.sh",
+        "scripts/service_config.sh",
+        "scripts/strongswan.sh"
+      ],
+      "execute_command": "bash '{{.Path}}'"
+    },
+    {
+      "type": "shell",
+      "inline": [
+        "fstrim -v /"
+      ]
+    }
+  ]
 }

@@ -7,19 +7,8 @@ date
 # Bump the new version every day
 SYSTEMVM_RELEASE=$(date +%-y.%-m.%-d)
 
-configure_apache2 () {
-   # Enable ssl, rewrite and auth
-   a2enmod ssl rewrite auth_basic auth_digest
-   a2ensite default-ssl
-   # Backup stock apache configuration since we may modify it in Secondary Storage VM
-   cp /etc/apache2/sites-available/default /etc/apache2/sites-available/default.orig
-   cp /etc/apache2/sites-available/default-ssl /etc/apache2/sites-available/default-ssl.orig
-   sed -i 's/SSLProtocol all -SSLv2$/SSLProtocol all -SSLv2 -SSLv3/g' /etc/apache2/mods-available/ssl.conf
-}
-
 install_cloud_scripts () {
    echo "Installing initial version of cloud-early-config"
-   mv /tmp/cloud-early-config /etc/init.d
    chmod 755 /etc/init.d/cloud-early-config
    chkconfig --add cloud-early-config
    chkconfig cloud-early-config on
@@ -31,14 +20,8 @@ install_cloud_scripts () {
 }
 
 do_signature () {
-  mkdir -p /var/cache/cloud/ /usr/share/cloud/
   echo 'zero' > /var/cache/cloud/cloud-scripts-signature
   echo "Cloudstack Release $SYSTEMVM_RELEASE $(date)" > /etc/cloudstack-release
-}
-
-service_order () {
-  insserv -v -d 2>&1
-  find /etc/| grep -E "cloud-early|qemu-guest"
 }
 
 configure_services () {
@@ -53,15 +36,6 @@ configure_services () {
 
   install_cloud_scripts
   do_signature
-
-  chkconfig xl2tpd off
-
-  # Disable services that slow down boot and are not used anyway
-  chkconfig x11-common off
-  chkconfig console-setup off
-
-  configure_apache2
-
   service_order
 }
 
