@@ -61,7 +61,9 @@ bootloader --location=mbr --driveorder=vda --append="console=ttyS0,115200"
 -wireless-tools
 
 acpid
+bind-utils
 bzip2
+conntrack-tools
 curl
 diffutils
 dnsmasq
@@ -105,6 +107,7 @@ telnet
 traceroute
 unzip
 uuid
+vim-enhanced
 virt-what
 wget
 zip
