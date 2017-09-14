@@ -75,7 +75,6 @@ grep
 gzip
 httping
 iproute
-ipsec-tools
 iptables
 ipvsadm
 java
