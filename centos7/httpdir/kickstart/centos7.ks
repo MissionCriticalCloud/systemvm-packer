@@ -73,7 +73,6 @@ ftp
 gawk
 grep
 gzip
-httping
 iproute
 iptables
 ipvsadm
