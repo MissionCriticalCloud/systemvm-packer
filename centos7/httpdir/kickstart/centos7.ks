@@ -109,7 +109,6 @@ unzip
 uuid
 virt-what
 wget
-xl2tpd
 zip
 %end
 
