@@ -1,0 +1,15 @@
+#
+# systemd service file to provide an entry point for the service running on the systemvm
+#
+
+[Unit]
+Description=Cosmic generic startup hook
+Requires=qemu-guest-agent.service
+After=qemu-guest-agent.service cosmic-patch-scripts.service
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/python3.6 /opt/cosmic/startup/generic_startup_hook.py
+
+[Install]
+WantedBy=multi-user.target
