@@ -66,6 +66,7 @@
       "type": "shell",
       "inline": [
         "systemctl enable cosmic-setup-private-nic",
+        "mkdir -p /var/cache/cloud",
         "fstrim -v /"
       ]
     }
