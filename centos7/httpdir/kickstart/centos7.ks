@@ -141,9 +141,14 @@ echo "virtual-guest" > /etc/tune-profiles/active-profile
 
 # Remove existing SSH keys - if generated - as they need to be unique
 rm -rf /etc/ssh/*key*
+
 # the MAC address will change
 sed -i '/HWADDR/d' /etc/sysconfig/network-scripts/ifcfg-eth0
 sed -i '/UUID/d' /etc/sysconfig/network-scripts/ifcfg-eth0
+
+# We allow the qemu guest agent to do all actions
+sed -i '/BLACKLIST_RPC/d' /etc/sysconfig/qemu-ga
+
 # remove logs and temp files
 yum -y clean all
 rm -f /var/lib/random-seed
