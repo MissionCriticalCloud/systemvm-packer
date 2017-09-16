@@ -51,6 +51,14 @@
       "destination": "/usr/lib/systemd/system/cosmic-setup-private-nic.service"
     },
     {
+      "type": "shell",
+      "inline": [
+        "systemctl enable cosmic-setup-private-nic",
+        "mkdir -p /var/cache/cloud",
+        "mkdir -p /opt/cosmic/startup"
+      ]
+    },
+    {
       "type": "file",
       "source": "files/setup-private-nic.sh",
       "destination": "/opt/cosmic/startup/setup-private-nic.sh"
@@ -65,8 +73,6 @@
     {
       "type": "shell",
       "inline": [
-        "systemctl enable cosmic-setup-private-nic",
-        "mkdir -p /var/cache/cloud",
         "fstrim -v /"
       ]
     }
