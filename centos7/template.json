@@ -47,47 +47,25 @@
   "provisioners": [
     {
       "type": "file",
-      "source": "files/strongswan-starter.ipsec.init",
-      "destination": "/etc/init.d/ipsec"
+      "source": "files/systemd/cosmic-setup-private-nic.service",
+      "destination": "/usr/lib/systemd/system/cosmic-setup-private-nic.service"
     },
     {
       "type": "file",
-      "source": "files/ipsec.conf",
-      "destination": "/etc/ipsec.conf"
-    },
-    {
-      "type": "file",
-      "source": "files/ipsec.secrets",
-      "destination": "/etc/ipsec.secrets"
-    },
-    {
-      "type": "file",
-      "source": "files/l2tp.conf",
-      "destination": "/etc/ipsec.d/l2tp.conf"
-    },
-    {
-      "type": "file",
-      "source": "files/cloud-early-config",
-      "destination": "/etc/init.d/cloud-early-config"
-    },
-    {
-      "type": "file",
-      "source": "files/patchsystemvm.sh",
-      "destination": "/tmp/patchsystemvm.sh"
+      "source": "files/setup-private-nic.sh",
+      "destination": "/opt/cosmic/startup/setup-private-nic.sh"
     },
     {
       "type": "shell",
       "scripts": [
-        "scripts/networking.sh",
-        "scripts/conntrack.sh",
-        "scripts/service_config.sh",
-        "scripts/strongswan.sh"
+        "scripts/conntrack.sh"
       ],
       "execute_command": "bash '{{.Path}}'"
     },
     {
       "type": "shell",
       "inline": [
+        "systemctl enable cosmic-setup-private-nic",
         "fstrim -v /"
       ]
     }
