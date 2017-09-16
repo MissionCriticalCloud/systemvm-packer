@@ -66,6 +66,7 @@
     {
       "type": "shell",
       "scripts": [
+        "scripts/ssh.sh",
         "scripts/conntrack.sh"
       ],
       "execute_command": "bash '{{.Path}}'"
