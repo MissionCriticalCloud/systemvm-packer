@@ -67,6 +67,7 @@
     {
       "type": "shell",
       "scripts": [
+        "scripts/release_signature.sh",
         "scripts/ssh.sh",
         "scripts/conntrack.sh"
       ],
