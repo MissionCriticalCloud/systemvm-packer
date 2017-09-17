@@ -1,0 +1,13 @@
+#
+# systemd service file to gather the scripts from the attached cdrom
+#
+
+[Unit]
+Description=Cosmic patch scripts
+
+[Service]
+Type=oneshot
+ExecStart=/bin/sh /opt/cosmic/startup/patch-scripts.sh
+
+[Install]
+WantedBy=multi-user.target

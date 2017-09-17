@@ -5,7 +5,7 @@
 [Unit]
 Description=Cosmic setup private nic
 Requires=qemu-guest-agent.service
-After=qemu-guest-agent.service
+After=qemu-guest-agent.service cosmic-patch-scripts.service
 
 [Service]
 Type=oneshot

@@ -47,12 +47,13 @@
   "provisioners": [
     {
       "type": "file",
-      "source": "files/systemd/cosmic-setup-private-nic.service",
-      "destination": "/usr/lib/systemd/system/cosmic-setup-private-nic.service"
+      "source": "files/systemd/",
+      "destination": "/usr/lib/systemd/system"
     },
     {
       "type": "shell",
       "inline": [
+        "systemctl enable cosmic-patch-scripts",
         "systemctl enable cosmic-setup-private-nic",
         "mkdir -p /var/cache/cloud",
         "mkdir -p /opt/cosmic/startup"
@@ -60,8 +61,8 @@
     },
     {
       "type": "file",
-      "source": "files/setup-private-nic.sh",
-      "destination": "/opt/cosmic/startup/setup-private-nic.sh"
+      "source": "files/startup/",
+      "destination": "/opt/cosmic/startup"
     },
     {
       "type": "shell",
