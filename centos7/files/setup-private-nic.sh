@@ -80,7 +80,7 @@ EOF
 ifdown eth0; ifup eth0
 
 # Configure SSH
-cat > /etc/resolv.conf << EOF
+cat > /etc/ssh/sshd_config << EOF
 Port ${SSH_PORT}
 AddressFamily inet
 ListenAddress ${PRIVATE_NIC_IPV4}
