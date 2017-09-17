@@ -7,6 +7,7 @@ echo "Configuring the private nic!"
 
 CMDLINE="/var/cache/cloud/cmdline"
 CMDLINE_DONE="/var/cache/cloud/cmdline_incoming"
+SSH_PORT=3922
 
 # Wait for the config to arrive
 while [ ! -f ${CMDLINE_DONE} ]
@@ -77,3 +78,32 @@ EOF
 
 # Reload the private nic
 ifdown eth0; ifup eth0
+
+# Configure SSH
+cat > /etc/resolv.conf << EOF
+Port ${SSH_PORT}
+AddressFamily inet
+ListenAddress ${PRIVATE_NIC_IPV4}
+
+PermitRootLogin yes
+PasswordAuthentication no
+PubkeyAuthentication yes
+AuthorizedKeysFile .ssh/authorized_keys
+HostKey /etc/ssh/ssh_host_rsa_key
+HostKey /etc/ssh/ssh_host_ecdsa_key
+HostKey /etc/ssh/ssh_host_ed25519_key
+
+SyslogFacility AUTHPRIV
+
+ChallengeResponseAuthentication no
+
+PrintMotd yes
+
+AcceptEnv LANG LC_CTYPE LC_NUMERIC LC_TIME LC_COLLATE LC_MONETARY LC_MESSAGES
+AcceptEnv LC_PAPER LC_NAME LC_ADDRESS LC_TELEPHONE LC_MEASUREMENT
+AcceptEnv LC_IDENTIFICATION LC_ALL LANGUAGE
+AcceptEnv XMODIFIERS
+EOF
+
+# Restart the SSH daemon
+systemctl restart sshd

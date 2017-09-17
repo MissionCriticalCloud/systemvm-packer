@@ -1,11 +1,6 @@
 #
-# systemd service file for patching the systemvm
+# systemd service file to configure the private nic
 #
-# Actions:
-#  - Wait for the qemu-ga
-#  - Wait for cosmic-agent to write the init files
-#  - Setup the private nic for communications
-#  - Patch the system with files from the cdrom
 
 [Unit]
 Description=Cosmic setup private nic
