@@ -5,7 +5,7 @@
 [Unit]
 Description=Cosmic setup private nic
 Requires=qemu-guest-agent.service
-After=syslog.target network.target qemu-guest-agent.service
+After=qemu-guest-agent.service
 
 [Service]
 Type=oneshot
