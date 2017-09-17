@@ -105,5 +105,8 @@ AcceptEnv LC_IDENTIFICATION LC_ALL LANGUAGE
 AcceptEnv XMODIFIERS
 EOF
 
+# Correct ownership of the authorized key file
+chmod 644 /root/.ssh/authorized_keys
+
 # Restart the SSH daemon
 systemctl restart sshd
