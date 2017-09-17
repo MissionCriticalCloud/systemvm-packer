@@ -11,7 +11,8 @@ CDROM_MNT="/mnt/cdrom"
 
 PATCH_FILE="cloud-scripts.tgz"
 PATCH_FILE_SSVM_CPVM="systemvm.zip"
-PATCH_FOLDER=${CDROM_MNT}
+PATCH_SHA512_PATH="/opt/cosmic/patch"
+PATCH_SHA512_FILE="${PATCH_FILE}.sha512"
 
 SSVM_CPVM_FOLDER="/opt/cosmic/agent"
 
@@ -33,3 +34,7 @@ tar -xvf ${CDROM_MNT}/${PATCH_FILE} -C /
 echo "Copying ssvm/cpvm files to ${SSVM_CPVM_FOLDER} ..."
 mkdir -p ${SSVM_CPVM_FOLDER}
 unzip ${CDROM_MNT}/${PATCH_FILE_SSVM_CPVM} -d ${SSVM_CPVM_FOLDER}
+
+echo "Generating SHA512 of the patched scripts"
+mkdir -p ${PATCH_SHA512_PATH}
+sha512sum ${CDROM_MNT}/${PATCH_FILE} | cut -d " " -f 1 > ${PATCH_SHA512_PATH}/${PATCH_SHA512_FILE}
