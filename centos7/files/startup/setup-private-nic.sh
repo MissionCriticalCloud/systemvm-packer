@@ -23,6 +23,11 @@ NEW_HOSTNAME=
 PRIVATE_NIC_IPV4=
 PRIVATE_NIC_IPv4_NETMASK=
 PRIVATE_NIC_MAC=
+VPCCIDR=
+TEMPLATE=
+VMPASSWORD=
+TYPE=
+DISABLE_RP_FILTER=
 
 for i in $(cat ${CMDLINE})
   do
@@ -49,6 +54,18 @@ for i in $(cat ${CMDLINE})
         ;;
       eth0mac)
         PRIVATE_NIC_MAC=${VALUE}
+        ;;
+      template)
+        TEMPLATE=${VALUE}
+        ;;
+      vmpassword)
+        VMPASSWORD=${VALUE}
+        ;;
+      type)
+        TYPE=${VALUE}
+        ;;
+      disable_rp_filter)
+        DISABLE_RP_FILTER=${VALUE}
         ;;
       *)
         ;;
@@ -78,6 +95,30 @@ EOF
 
 # Reload the private nic
 ifdown eth0; ifup eth0
+
+# Write cmdline.json
+cat > /etc/cosmic/router/cmdline.json << EOF
+{
+  "config": {
+    "disable_rp_filter": "${DISABLE_RP_FILTER}",
+    "dns1": "${DNS1}",
+    "dns2": "${DNS2}",
+    "domain": "${DOMAIN}",
+    "eth0ip": "${PRIVATE_NIC_IPV4}",
+    "eth0mask": "${PRIVATE_NIC_IPv4_NETMASK}",
+    "name": "${NEW_HOSTNAME}",
+    "redundant_router": "false",
+    "template": "${TEMPLATE}",
+    "type": "${TYPE}",
+    "vmpassword": "${VMPASSWORD}",
+    "vpccidr": "${VPCCIDR}"
+  },
+  "id": "cmdline"
+}
+EOF
+
+# Bootstrap the systemvm
+/opt/cosmic/router/bin/update_config.py cmdline.json
 
 # Configure SSH
 cat > /etc/ssh/sshd_config << EOF
