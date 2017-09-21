@@ -97,9 +97,10 @@ EOF
 ifdown eth0; ifup eth0
 
 # Write cmdline.json
-cat > /etc/cosmic/router/cmdline.json << EOF
+cat > /var/cache/cloud/cmd_line.json << EOF
 {
-  "config": {
+  "type": "cmdline",
+  "cmd_line": {
     "disable_rp_filter": "${DISABLE_RP_FILTER}",
     "dns1": "${DNS1}",
     "dns2": "${DNS2}",
@@ -112,13 +113,12 @@ cat > /etc/cosmic/router/cmdline.json << EOF
     "type": "${TYPE}",
     "vmpassword": "${VMPASSWORD}",
     "vpccidr": "${VPCCIDR}"
-  },
-  "id": "cmdline"
+  }
 }
 EOF
 
 # Bootstrap the systemvm
-/opt/cosmic/router/bin/update_config.py cmdline.json
+/opt/cosmic/router/bin/update_config.py cmd_line.json
 
 # Configure SSH
 cat > /etc/ssh/sshd_config << EOF
