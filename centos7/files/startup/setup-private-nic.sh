@@ -61,6 +61,9 @@ for i in $(cat ${CMDLINE})
       vmpassword)
         VMPASSWORD=${VALUE}
         ;;
+      vpccidr)
+        VPCCIDR=${VALUE}
+        ;;
       type)
         TYPE=${VALUE}
         ;;
