@@ -7,7 +7,7 @@ Description=Cosmic patch scripts
 
 [Service]
 Type=oneshot
-ExecStart=/bin/sh /opt/cosmic/startup/patch-scripts.sh
+ExecStart=/bin/bash -x /opt/cosmic/startup/patch-scripts.sh
 
 [Install]
 WantedBy=multi-user.target

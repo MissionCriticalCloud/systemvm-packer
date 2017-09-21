@@ -54,7 +54,7 @@
       "type": "shell",
       "inline": [
         "systemctl enable cosmic-patch-scripts",
-        "systemctl enable cosmic-setup-private-nic",
+        "systemctl enable cosmic-generic-startup-hook",
         "mkdir -p /var/cache/cloud",
         "mkdir -p /opt/cosmic/startup"
       ]
