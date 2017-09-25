@@ -84,7 +84,6 @@ less
 logrotate
 lsof
 net-tools
-nginx
 ntp
 openssh-server
 openssl
@@ -133,7 +132,7 @@ yum -y clean all
 yum -C -y remove authconfig NetworkManager linux-firmware --setopt="clean_requirements_on_remove=1"
 
 # Install epel packages
-yum --enablerepo=epel -y install ipsec-tools xl2tpd httping strongswan
+yum --enablerepo=epel -y install ipsec-tools xl2tpd httping strongswan nginx
 
 # Install pip
 curl "https://bootstrap.pypa.io/get-pip.py" | python
