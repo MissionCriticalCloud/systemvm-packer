@@ -9,7 +9,7 @@ After=qemu-guest-agent.service cosmic-patch-scripts.service
 
 [Service]
 Type=oneshot
-ExecStart=/usr/bin/python /opt/cosmic/startup/generic_startup_hook.py
+ExecStart=/usr/bin/python3.6 /opt/cosmic/startup/generic_startup_hook.py
 
 [Install]
 WantedBy=multi-user.target
