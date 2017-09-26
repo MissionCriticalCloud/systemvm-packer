@@ -134,6 +134,9 @@ yum -C -y remove authconfig NetworkManager linux-firmware --setopt="clean_requir
 # Install epel packages
 yum --enablerepo=epel -y install ipsec-tools xl2tpd httping strongswan nginx
 
+yum -y install https://centos7.iuscommunity.org/ius-release.rpm
+yum -y install python36u
+
 # Install pip
 curl "https://bootstrap.pypa.io/get-pip.py" | python
 
