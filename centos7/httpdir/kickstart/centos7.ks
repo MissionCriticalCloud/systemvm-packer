@@ -84,6 +84,7 @@ less
 logrotate
 lsof
 net-tools
+nfs-utils
 ntp
 openssh-server
 openssl
