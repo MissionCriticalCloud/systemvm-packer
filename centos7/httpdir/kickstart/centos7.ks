@@ -80,6 +80,7 @@ iproute
 iptables
 ipvsadm
 java
+keepalived
 less
 logrotate
 lsof
