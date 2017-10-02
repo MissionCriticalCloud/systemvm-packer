@@ -76,6 +76,7 @@ ftp
 gawk
 grep
 gzip
+haproxy
 iproute
 ipset
 iptables
