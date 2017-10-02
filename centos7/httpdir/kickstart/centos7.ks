@@ -77,6 +77,7 @@ gawk
 grep
 gzip
 iproute
+ipset
 iptables
 ipvsadm
 java
