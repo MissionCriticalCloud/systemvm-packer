@@ -1,0 +1,83 @@
+{
+  "variables": {
+    "build_name": "cosmic_systemvm_template"
+  },
+  "builders": [
+    {
+      "type": "qemu",
+      "iso_url": "http://ftp.tudelft.nl/centos.org/7/isos/x86_64/CentOS-7-x86_64-Minimal-1708.iso",
+      "iso_checksum": "bba314624956961a2ea31dd460cd860a77911c1e0a56e4820a12b9c5dad363f5",
+      "iso_checksum_type": "sha256",
+      "output_directory": "packer_output",
+      "ssh_wait_timeout": "15m",
+      "shutdown_command": "systemctl poweroff",
+      "disk_size": "8192",
+      "format": "qcow2",
+      "accelerator": "kvm",
+      "headless": "true",
+      "qemuargs": [
+        [
+          "-smp",
+          "4"
+        ],
+        [
+          "-m",
+          "1024M"
+        ]
+      ],
+      "http_directory": "httpdir",
+      "http_port_min": 10082,
+      "http_port_max": 10089,
+      "ssh_host_port_min": 2222,
+      "ssh_host_port_max": 2229,
+      "ssh_username": "root",
+      "ssh_password": "password",
+      "ssh_port": 22,
+      "vm_name": "cosmic-systemvm",
+      "net_device": "virtio-net",
+      "disk_interface": "virtio-scsi",
+      "disk_cache": "unsafe",
+      "disk_discard": "unmap",
+      "disk_compression": true,
+      "boot_command": [
+        "<tab> text ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/kickstart/centos7.ks<enter><wait>"
+      ]
+    }
+  ],
+  "provisioners": [
+    {
+      "type": "file",
+      "source": "files/systemd/",
+      "destination": "/usr/lib/systemd/system"
+    },
+    {
+      "type": "shell",
+      "inline": [
+        "systemctl enable cosmic-patch-scripts",
+        "systemctl enable cosmic-generic-startup-hook",
+        "mkdir -p /var/cache/cloud",
+        "mkdir -p /opt/cosmic/startup"
+      ]
+    },
+    {
+      "type": "file",
+      "source": "files/startup/",
+      "destination": "/opt/cosmic/startup"
+    },
+    {
+      "type": "shell",
+      "scripts": [
+        "scripts/release_signature.sh",
+        "scripts/ssh.sh",
+        "scripts/conntrack.sh"
+      ],
+      "execute_command": "bash '{{.Path}}'"
+    },
+    {
+      "type": "shell",
+      "inline": [
+        "fstrim -v /"
+      ]
+    }
+  ]
+}
