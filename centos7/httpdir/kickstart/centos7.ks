@@ -161,6 +161,9 @@ sed -i '/BLACKLIST_RPC/d' /etc/sysconfig/qemu-ga
 yum -y clean all
 rm -f /var/lib/random-seed
 
+# Remove keepalived sample config
+rm -f /etc/keepalived/keepalived.conf
+
 # Grub tuning -> enable tty console
 grubby --update-kernel=ALL --args="crashkernel=0@0 video=1024x768 console=ttyS0,115200n8 console=tty0 consoleblank=0"
 grubby --update-kernel=ALL --remove-args="quiet rhgb"
