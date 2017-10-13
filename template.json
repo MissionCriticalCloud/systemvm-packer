@@ -55,6 +55,7 @@
       "inline": [
         "systemctl enable cosmic-patch-scripts",
         "systemctl enable cosmic-generic-startup-hook",
+        "systemctl enable tmp.mount",
         "mkdir -p /var/cache/cloud",
         "mkdir -p /opt/cosmic/startup"
       ]
