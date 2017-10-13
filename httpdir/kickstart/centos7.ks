@@ -42,7 +42,6 @@ part pv.cosmic --size=1024 --grow
 volgroup vg.cosmic pv.cosmic
 logvol / --vgname=vg.cosmic --fstype=ext4 --size=5120 --name=lv_root
 logvol /var/log --vgname=vg.cosmic --fstype=ext4 --size=2048 --name=lv_var
-logvol /tmp --vgname=vg.cosmic --fstype=ext4 --size=512 --name=lv_tmp
 bootloader --location=mbr --driveorder=vda --append="console=ttyS0,115200"
 
 ############
