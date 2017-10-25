@@ -70,6 +70,7 @@
       "scripts": [
         "scripts/release_signature.sh",
         "scripts/ssh.sh",
+        "scripts/qemu-ga-blacklist.sh",
         "scripts/conntrack.sh"
       ],
       "execute_command": "bash '{{.Path}}'"
