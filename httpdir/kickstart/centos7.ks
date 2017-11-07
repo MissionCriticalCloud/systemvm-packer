@@ -100,6 +100,7 @@ psmisc
 python
 python-flask
 python-netaddr
+python-netifaces
 radvd
 rpcbind
 rsync
