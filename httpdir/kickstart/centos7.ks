@@ -119,6 +119,7 @@ unzip
 uuid
 vim-enhanced
 virt-what
+watchdog
 wget
 zip
 %end
