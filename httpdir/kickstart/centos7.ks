@@ -84,6 +84,7 @@ haproxy
 iproute
 ipset
 iptables
+iptables-services
 ipvsadm
 java
 keepalived
