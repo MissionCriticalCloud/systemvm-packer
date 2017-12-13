@@ -56,6 +56,8 @@
         "systemctl enable cosmic-patch-scripts",
         "systemctl enable cosmic-generic-startup-hook",
         "systemctl enable tmp.mount",
+        "systemctl enable keepalived",
+        "systemctl enable conntrackd",
         "mkdir -p /var/cache/cloud",
         "mkdir -p /opt/cosmic/startup"
       ]
