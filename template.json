@@ -58,6 +58,7 @@
         "systemctl enable tmp.mount",
         "systemctl enable keepalived",
         "systemctl enable conntrackd",
+        "systemctl enable iptables",
         "mkdir -p /var/cache/cloud",
         "mkdir -p /opt/cosmic/startup"
       ]
