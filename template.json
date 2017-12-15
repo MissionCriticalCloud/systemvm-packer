@@ -63,6 +63,12 @@
       ]
     },
     {
+      "type": "shell",
+      "inline": [
+        "for s in \"rpcbind.socket rpc-gssd rpcidmapd rpc-rquotad rpc-statd rpc-statd-notify\"; do systemctl stop $s; systemctl disable $s; done"
+      ]
+    },
+    {
       "type": "file",
       "source": "files/startup/",
       "destination": "/opt/cosmic/startup"
