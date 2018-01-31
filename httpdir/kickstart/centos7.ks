@@ -89,6 +89,7 @@ ipvsadm
 java
 keepalived
 less
+libselinux-python
 logrotate
 lsof
 net-tools
