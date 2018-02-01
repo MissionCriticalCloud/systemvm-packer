@@ -103,6 +103,7 @@ python
 python-flask
 python-netaddr
 python-netifaces
+qemu-img
 radvd
 rpcbind
 rsync
@@ -144,7 +145,7 @@ yum -y clean all
 yum -C -y remove authconfig NetworkManager linux-firmware --setopt="clean_requirements_on_remove=1"
 
 # Install epel packages
-yum --enablerepo=epel -y install ipsec-tools xl2tpd httping strongswan nginx htop bash-completion bash-completion-extras
+yum --enablerepo=epel -y install iftop iperf ipsec-tools xl2tpd httping strongswan nginx htop bash-completion bash-completion-extras
 
 yum -y install https://centos7.iuscommunity.org/ius-release.rpm
 yum -y install python36u
