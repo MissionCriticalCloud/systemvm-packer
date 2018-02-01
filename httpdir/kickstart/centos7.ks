@@ -183,4 +183,7 @@ systemctl disable postfix.service
 # Sync time via hypervisor
 sed -i -e ':a;N;$!ba;s/Use public servers.*iburst/Use hypervisor ntp service\nserver 169.254.0.1 iburst/' /etc/chrony.conf
 
+# Disable zeroconfig
+echo "NOZEROCONF=\"yes\"" > /etc/sysconfig/network
+
 %end
