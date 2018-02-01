@@ -176,4 +176,11 @@ rm -f /etc/keepalived/keepalived.conf
 grubby --update-kernel=ALL --args="crashkernel=0@0 video=1024x768 console=ttyS0,115200n8 console=tty0 consoleblank=0"
 grubby --update-kernel=ALL --remove-args="quiet rhgb"
 
+# disable kdump / postfix
+systemctl disable kdump.service
+systemctl disable postfix.service
+
+# Sync time via hypervisor
+sed -i -e ':a;N;$!ba;s/Use public servers.*iburst/Use hypervisor ntp service\nserver 169.254.0.1 iburst/' /etc/chrony.conf
+
 %end
