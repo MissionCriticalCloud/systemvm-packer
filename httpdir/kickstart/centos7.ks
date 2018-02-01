@@ -181,6 +181,6 @@ systemctl disable kdump.service
 systemctl disable postfix.service
 
 # Sync time via hypervisor
-sed -e ':a;N;$!ba;s/Use public servers.*iburst/Use hypervisor ntp service\nserver 169.254.0.1 iburst/' /etc/chrony.conf
+sed -i -e ':a;N;$!ba;s/Use public servers.*iburst/Use hypervisor ntp service\nserver 169.254.0.1 iburst/' /etc/chrony.conf
 
 %end
