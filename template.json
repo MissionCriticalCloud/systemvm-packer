@@ -59,6 +59,7 @@
         "systemctl enable keepalived",
         "systemctl enable conntrackd",
         "systemctl enable iptables",
+        "systemctl enable strongswan",
         "mkdir -p /var/cache/cloud",
         "mkdir -p /opt/cosmic/startup"
       ]
