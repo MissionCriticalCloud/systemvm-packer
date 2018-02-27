@@ -60,6 +60,7 @@
         "systemctl enable conntrackd",
         "systemctl enable iptables",
         "systemctl enable strongswan",
+        "systemctl enable dnsmasq",
         "mkdir -p /var/cache/cloud",
         "mkdir -p /opt/cosmic/startup"
       ]
