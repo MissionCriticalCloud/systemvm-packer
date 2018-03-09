@@ -61,6 +61,7 @@
         "systemctl enable iptables",
         "systemctl enable strongswan",
         "systemctl enable dnsmasq",
+        "systemctl enable nginx",
         "mkdir -p /var/cache/cloud",
         "mkdir -p /opt/cosmic/startup"
       ]
