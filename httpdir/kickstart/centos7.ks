@@ -81,6 +81,7 @@ gawk
 grep
 gzip
 haproxy
+httpd-tools
 iproute
 ipset
 iptables
