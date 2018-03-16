@@ -187,6 +187,10 @@ sed -i -e ':a;N;$!ba;s/Use public servers.*iburst/Use hypervisor ntp service\nse
 # enable logrotate compression
 sed -i -e 's/^create/create\ncompress/' /etc/logrotate.conf
 
+# Logrotate daily and keep 10 days
+sed -i -e 's/weekly/daily/' /etc/logrotate.conf
+sed -i -e 's/rotate 4/rotate 10/' /etc/logrotate.conf
+
 # Disable zeroconfig
 echo "NOZEROCONF=\"yes\"" > /etc/sysconfig/network
 
