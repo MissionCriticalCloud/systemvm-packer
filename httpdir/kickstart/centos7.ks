@@ -154,7 +154,7 @@ yum -y install python36u
 # Install pip
 curl "https://bootstrap.pypa.io/get-pip.py" | python
 
-pip install pyyaml
+python3.6 -m pip install pyyaml
 
 # Set virtual-guest as default profile for tuned
 echo "virtual-guest" > /etc/tune-profiles/active-profile
