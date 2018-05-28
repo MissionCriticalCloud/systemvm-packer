@@ -150,11 +150,12 @@ yum --enablerepo=epel -y install iftop iperf ipsec-tools xl2tpd httping strongsw
 
 yum -y install https://centos7.iuscommunity.org/ius-release.rpm
 yum -y install python36u
+yum -y install python36u-pip
 
-# Install pip
+# Install pip2.7
 curl "https://bootstrap.pypa.io/get-pip.py" | python
 
-python3.6 -m pip install pyyaml
+pip3.6 install pyyaml
 
 # Set virtual-guest as default profile for tuned
 echo "virtual-guest" > /etc/tune-profiles/active-profile
