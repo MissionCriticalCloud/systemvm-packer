@@ -5,8 +5,8 @@
   "builders": [
     {
       "type": "qemu",
-      "iso_url": "http://ftp.tudelft.nl/centos.org/7/isos/x86_64/CentOS-7-x86_64-Minimal-1804.iso",
-      "iso_checksum": "714acc0aefb32b7d51b515e25546835e55a90da9fb00417fbee2d03a62801efd",
+      "iso_url": "http://ftp.tudelft.nl/centos.org/7/isos/x86_64/CentOS-7-x86_64-Minimal-1810.iso",
+      "iso_checksum": "38d5d51d9d100fd73df031ffd6bd8b1297ce24660dc8c13a3b8b4534a4bd291c",
       "iso_checksum_type": "sha256",
       "output_directory": "packer_output",
       "ssh_wait_timeout": "15m",
