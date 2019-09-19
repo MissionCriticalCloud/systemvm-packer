@@ -1,0 +1,8 @@
+[Unit]
+Wants=cosmic-generic-startup-hook.service
+
+[Path]
+PathChanged=/tmp/cmdline
+
+[Install]
+WantedBy=multi-user.target
