@@ -1,0 +1,5 @@
+[Unit]
+Wants=cosmic-generic-startup-hook.service
+
+[Path]
+PathChanged=/tmp/cmdline
