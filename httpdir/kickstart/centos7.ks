@@ -148,14 +148,11 @@ yum -C -y remove authconfig NetworkManager linux-firmware --setopt="clean_requir
 # Install epel packages
 yum --enablerepo=epel -y install iftop iperf ipsec-tools xl2tpd httping strongswan nginx htop bash-completion bash-completion-extras
 
-yum -y install https://centos7.iuscommunity.org/ius-release.rpm
-yum -y install python36u
-yum -y install python36u-pip
+# Install Python3
+yum -y install python3 python3-pip python36-PyYAML
 
 # Install pip2.7
 curl "https://bootstrap.pypa.io/get-pip.py" | python
-
-pip3.6 install pyyaml
 
 # Set virtual-guest as default profile for tuned
 echo "virtual-guest" > /etc/tune-profiles/active-profile
