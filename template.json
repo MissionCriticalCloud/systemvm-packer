@@ -7,7 +7,6 @@
       "type": "qemu",
       "iso_url": "http://ftp.tudelft.nl/centos.org/7/isos/x86_64/CentOS-7-x86_64-Minimal-2003.iso",
       "iso_checksum": "659691c28a0e672558b003d223f83938f254b39875ee7559d1a4a14c79173193",
-      "iso_checksum_type": "sha256",
       "output_directory": "packer_output",
       "ssh_wait_timeout": "15m",
       "shutdown_command": "systemctl poweroff",
@@ -15,6 +14,7 @@
       "format": "qcow2",
       "accelerator": "kvm",
       "headless": true,
+      "qemu_binary": "/usr/libexec/qemu-kvm",
       "qemuargs": [
         [
           "-smp",
@@ -28,8 +28,8 @@
       "http_directory": "httpdir",
       "http_port_min": 10082,
       "http_port_max": 10089,
-      "ssh_host_port_min": 2222,
-      "ssh_host_port_max": 2229,
+      "host_port_min": 2222,
+      "host_port_max": 2229,
       "ssh_username": "root",
       "ssh_password": "password",
       "ssh_port": 22,
